@@ -1,9 +1,10 @@
 # How European democracies evolved
 
 Data analysis and visualization: [Gianna-Carina Grün](https://twitter.com/giannagruen), [Kira Schacht](https://twitter.com/daten_drang)
+
 Research and writing:[Gianna-Carina Grün](https://twitter.com/giannagruen)
 
-You can read the story in [English](https://dw.com/a-) and [German](https://dw.com/a-67103631)
+You can read the story in [English](https://dw.com/a-67110321) and [German](https://dw.com/a-67103631)
 
 # Data Sources
 
