@@ -2,7 +2,7 @@
 
 Data analysis and visualization: [Gianna-Carina Grün](https://twitter.com/giannagruen), [Kira Schacht](https://twitter.com/daten_drang)
 
-Research and writing:[Gianna-Carina Grün](https://twitter.com/giannagruen)
+Research and writing: [Gianna-Carina Grün](https://twitter.com/giannagruen)
 
 You can read the story in [English](https://dw.com/a-67110321) and [German](https://dw.com/a-67103631)
 
@@ -22,7 +22,7 @@ with the way democracy works in (OUR COUNTRY)?"*
 
 *Timeseries and Map* 
 
-All the analysis and visualization steps can be seen in the accompanying [jupyter notebook](https://github.com/dw-data/liberal-democracies/blob/main/Vdem-Analysis.ipynb). 
+All the analysis and visualization steps can be seen in the accompanying [jupyter notebook](https://github.com/dw-data/liberal-democracies/blob/main/V-Dem-Analysis/Vdem-Analysis.ipynb). 
 
 - First, the dataframe was reduced to only include data covering the years from 2000 to 2022.
 - For the map, the values in the column `v2x_libdem` were used for the year 2022. Details on the indicator can be found in [V-Dem's codebook](https://v-dem.net/documents/24/codebook_v13.pdf), p. 45.
