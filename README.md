@@ -12,7 +12,11 @@ The visualisations in this story are based on two different datasources. The *ma
 The last update was published in March 2023 and includes data up until/including 2022 and can be downloaded [here](https://v-dem.net/data/the-v-dem-dataset/) (due to filesize limitations it is not incorporated into this directory directly). 
 For this analysis, the dataset `V-Dem-CY-Core_csv_v13.csv` was used, downloaded from the page from the section "Country-Year: V-Dem Core". For further details, see the section on Analysis and Visualization below.
 
-The survey data is based on **Eurobarometer** data. (Kira...)
+The survey data is based on the [**Eurobarometer**](https://europa.eu/eurobarometer/screen/home), a survey series regularly commissioned by the European Union since the 1970s to find out about EU citizens' social and political views, as well as attitudes towards the EU and its policies. It usually includes around 1000 respondents per EU member states. For this analysis, we are using data from the [Eurobarometer 98.2
+(2023)](https://search.gesis.org/research_data/ZA7953), done in early 2023 and published in the [gesis data catalogue](https://www.gesis.org/en/eurobarometer-data-service/home) of the German Leibniz Institute for the Social Sciences. We analyze question
+`sd18a - DEMOCRACY SATISFACTION - COUNTRY`, phrased as: *"On the whole, are you very
+satisfied, fairly satisfied, not very satisfied or not at all satisfied
+with the way democracy works in (OUR COUNTRY)?"*
 
 # Analysis and visualization
 
@@ -27,4 +31,11 @@ All the analysis and visualization steps can be seen in the accompanying [jupyte
 The quantitative analysis was further corroborated with the qualitative [Democracy Report 2023, published by V-Dem](https://v-dem.net/documents/29/V-dem_democracyreport2023_lowres.pdf).
 
 *Survey*
-(Kira...)
+
+The R code for this analysis can be found in the folder `Eurobarometer-Analysis`.
+
+- Load dataset and filter to include only country codes and answer codes to question `sd18a`.
+- Summarize individual responses to calculate number and share of respondents by country and answer.
+- Append answer labels and country
+names.
+- Save results by country to file, calculate overall satisfaction levels.
