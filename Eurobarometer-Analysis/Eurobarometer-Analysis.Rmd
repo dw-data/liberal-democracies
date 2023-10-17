@@ -17,7 +17,7 @@ From the data source above, download the file `ZA7953_v1-0-0_eurobarometer_98.2.
 
 
 ```{r cars}
-d = haven::read_dta("../data/raw/ZA7953_v1-0-0_eurobarometer_98.2.dta") %>% 
+d = haven::read_dta("../../data/raw/ZA7953_v1-0-0_eurobarometer_98.2.dta") %>% 
   select("isocntry", "sd18a") %>%
   mutate(isocntry = gsub("DE-.","DE", isocntry)) #merge east and west germany
 
@@ -38,7 +38,7 @@ d = d %>%
   summarise(n = n(), .groups = "drop") %>% 
   mutate(share = n/sum(n)) %>% 
   left_join(meta, by = c("sd18a" = "values")) %>% #merge descriptions
-  left_join(read.csv("../data/processed/eurobarometer_countrycodes.csv"), by = join_by(isocntry)) #merge country names
+  left_join(read.csv("eurobarometer_countrycodes.csv"), by = join_by(isocntry)) #merge country names
 ```
 
 
@@ -47,7 +47,7 @@ d = d %>%
 
 Make dataset of democracy satisfaction shares by country and save. Print overall satisfaction levels.
 
-```{r pressure, echo=FALSE}
+```{r}
 #make dataset by country
 x = d %>% 
   select(-n, -sd18a) %>% 
@@ -56,9 +56,10 @@ x = d %>%
          "Not satisfied TOTAL" = `Not very satisfied` + `Not at all satisfied`)
 
 #save data
-write.csv(x, file = "../data/processed/eurobarometer_country_democracy_satisfaction.csv", row.names = F)
+write.csv(x, file = "../../data/processed/eurobarometer_country_democracy_satisfaction.csv", row.names = F)
 
 #overall satisfaction
 d %>% group_by(sd18a, labels) %>% 
-  summarise(n = sum(n), .groups = "drop") %>% ungroup %>% mutate(share = n / sum(n))
+  summarise(n = sum(n), .groups = "drop") %>% ungroup %>% mutate(share = n / sum(n)) %>% 
+  knitr::kable()
 ```

@@ -11,7 +11,7 @@ satisfied, fairly satisfied, not very satisfied or not at all satisfied
 with the way democracy works in (OUR COUNTRY)?”)
 
 ``` r
-d = haven::read_dta("../data/raw/ZA7953_v1-0-0_eurobarometer_98.2.dta") %>% 
+d = haven::read_dta("../../data/raw/ZA7953_v1-0-0_eurobarometer_98.2.dta") %>% 
   select("isocntry", "sd18a") %>%
   mutate(isocntry = gsub("DE-.","DE", isocntry)) #merge east and west germany
 
@@ -33,7 +33,7 @@ d = d %>%
   summarise(n = n(), .groups = "drop") %>% 
   mutate(share = n/sum(n)) %>% 
   left_join(meta, by = c("sd18a" = "values")) %>% #merge descriptions
-  left_join(read.csv("../data/processed/eurobarometer_countrycodes.csv"), by = join_by(isocntry)) #merge country names
+  left_join(read.csv("eurobarometer_countrycodes.csv"), by = join_by(isocntry)) #merge country names
 ```
 
 ## Analyze democracy satisfaction
@@ -41,11 +41,27 @@ d = d %>%
 Make dataset of democracy satisfaction shares by country and save. Print
 overall satisfaction levels.
 
-    ## # A tibble: 5 × 4
-    ##   sd18a                        labels                       n  share
-    ##   <dbl+lbl>                    <chr>                    <int>  <dbl>
-    ## 1 1 [Very satisfied]           Very satisfied            3878 0.103 
-    ## 2 2 [Fairly satisfied]         Fairly satisfied         17508 0.463 
-    ## 3 3 [Not very satisfied]       Not very satisfied       10860 0.287 
-    ## 4 4 [Not at all satisfied]     Not at all satisfied      5112 0.135 
-    ## 5 5 [Don't know (SPONTANEOUS)] Don't know (SPONTANEOUS)   435 0.0115
+``` r
+#make dataset by country
+x = d %>% 
+  select(-n, -sd18a) %>% 
+  pivot_wider(names_from = labels, values_from = share) %>%
+  mutate("Satisfied TOTAL" = `Very satisfied`+`Fairly satisfied`,
+         "Not satisfied TOTAL" = `Not very satisfied` + `Not at all satisfied`)
+
+#save data
+write.csv(x, file = "../../data/processed/eurobarometer_country_democracy_satisfaction.csv", row.names = F)
+
+#overall satisfaction
+d %>% group_by(sd18a, labels) %>% 
+  summarise(n = sum(n), .groups = "drop") %>% ungroup %>% mutate(share = n / sum(n)) %>% 
+  knitr::kable()
+```
+
+| sd18a | labels                   |     n |     share |
+|------:|:-------------------------|------:|----------:|
+|     1 | Very satisfied           |  3878 | 0.1026116 |
+|     2 | Fairly satisfied         | 17508 | 0.4632604 |
+|     3 | Not very satisfied       | 10860 | 0.2873548 |
+|     4 | Not at all satisfied     |  5112 | 0.1352631 |
+|     5 | Don’t know (SPONTANEOUS) |   435 | 0.0115101 |
